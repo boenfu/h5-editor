@@ -29,7 +29,6 @@ export default {
       },
     },
   },
-  // mixins: [RectWidget.widgetMixin({ openContextmenu: false })],
   data() {
     return {
       dragging: false,

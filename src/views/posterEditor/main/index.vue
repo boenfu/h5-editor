@@ -21,36 +21,36 @@
 </template>
 
 <script>
-import mainPanel from './mainPanel'
-import _throttle from 'lodash/throttle'
-import rulerComponent from './ruler'
-import { mapMutations, mapState } from 'poster/poster.vuex'
-import bottomBar from './bottomBar'
-import customContextmenu from 'poster/components/customContextmenu'
-import { clickoutside } from 'poster/poster.directives'
-import functionalBar from './functionalBar'
+import mainPanel from './mainPanel';
+import _throttle from 'lodash/throttle';
+import rulerComponent from './ruler';
+import {mapMutations, mapState} from 'poster/poster.vuex';
+import bottomBar from './bottomBar';
+import customContextmenu from 'poster/components/customContextmenu';
+import {clickoutside} from 'poster/poster.directives';
+import functionalBar from './functionalBar';
 
-import BScroll from '@better-scroll/core'
-import MouseWheel from '@better-scroll/mouse-wheel'
-import ScrollBar from '@better-scroll/scroll-bar'
+import BScroll from '@better-scroll/core';
+import MouseWheel from '@better-scroll/mouse-wheel';
+import ScrollBar from '@better-scroll/scroll-bar';
 export default {
   components: {
     mainPanel,
     rulerComponent,
     bottomBar,
     customContextmenu,
-    functionalBar
+    functionalBar,
   },
-  directives: { clickoutside },
+  directives: {clickoutside},
   data() {
     return {
       count: 1,
       maskBorderWidth: '',
       maskHeight: 0,
       contextmenuVisible: false,
-      contextmenuPosition: { x: 0, y: 0 },
-      menuList: []
-    }
+      contextmenuPosition: {x: 0, y: 0},
+      menuList: [],
+    };
   },
   computed: {
     ...mapState(['canvasSize', 'mainPanelScrollY']),
@@ -58,30 +58,30 @@ export default {
       return {
         height: this.maskHeight + 'px',
         borderWidth: this.maskBorderWidth,
-        transform: `translateY(${this.mainPanelScrollY}px)`
-      }
-    }
+        transform: `translateY(${this.mainPanelScrollY}px)`,
+      };
+    },
   },
   watch: {
     canvasSize: {
       handler() {
-        this.getMaskSize()
+        this.getMaskSize();
         // mainPanel的size改变后有400ms的transition
         setTimeout(() => {
-          this.BScroll.refresh()
-        }, 500)
+          this.BScroll.refresh();
+        }, 500);
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   mounted() {
-    this.getMaskSizeThrottle = _throttle(this.getMaskSize, 300)
-    window.addEventListener('resize', this.getMaskSizeThrottle)
-    this.getMaskSize()
-    this.initScroll()
+    this.getMaskSizeThrottle = _throttle(this.getMaskSize, 300);
+    window.addEventListener('resize', this.getMaskSizeThrottle);
+    this.getMaskSize();
+    this.initScroll();
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.getMaskSizeThrottle)
+    window.removeEventListener('resize', this.getMaskSizeThrottle);
   },
   methods: {
     ...mapMutations(['SET_CANVAS_POSITION', 'SET_SCROLL_Y']),
@@ -89,63 +89,63 @@ export default {
      * 重新设置mask的size和canvas的position
      */
     getMaskSize() {
-      const mainRef = this.$refs.main
-      const left = (mainRef.clientWidth - this.canvasSize.width) / 2
-      const top = 50
+      const mainRef = this.$refs.main;
+      const left = (mainRef.clientWidth - this.canvasSize.width) / 2;
+      const top = 50;
       const bottom = Math.max(
         50,
-        mainRef.clientHeight - top - this.canvasSize.height
-      )
+        mainRef.clientHeight - top - this.canvasSize.height,
+      );
       this.maskBorderWidth = `${50}px ${Math.max(
         0,
-        left
-      )}px ${bottom}px ${Math.max(0, left)}px`
+        left,
+      )}px ${bottom}px ${Math.max(0, left)}px`;
       this.maskHeight = Math.max(
         mainRef.clientHeight,
-        this.canvasSize.height + 100
-      )
+        this.canvasSize.height + 100,
+      );
       const canvasPosition = {
         top: 50,
-        left: (mainRef.clientWidth - this.canvasSize.width) / 2
-      }
-      this.SET_CANVAS_POSITION(canvasPosition)
+        left: (mainRef.clientWidth - this.canvasSize.width) / 2,
+      };
+      this.SET_CANVAS_POSITION(canvasPosition);
     },
-    openContextmenu({ x, y, menuList, vm }) {
-      this.contextmenuPosition.x = x
-      this.contextmenuPosition.y = y
-      this.menuList = menuList
-      this._currentContextmenuWidgetVm = vm
-      this.contextmenuVisible = true
+    openContextmenu({x, y, menuList, vm}) {
+      this.contextmenuPosition.x = x;
+      this.contextmenuPosition.y = y;
+      this.menuList = menuList;
+      this._currentContextmenuWidgetVm = vm;
+      this.contextmenuVisible = true;
     },
     closeContextmenu() {
-      this.contextmenuVisible = false
+      this.contextmenuVisible = false;
     },
     // 执行右键命令
     executeContextCommand(commandItem) {
-      this.closeContextmenu()
-      const vm = this._currentContextmenuWidgetVm
+      this.closeContextmenu();
+      const vm = this._currentContextmenuWidgetVm;
       if (vm && vm._executeContextCommand) {
-        vm._executeContextCommand(commandItem)
+        vm._executeContextCommand(commandItem);
       }
     },
     initScroll() {
-      BScroll.use(MouseWheel)
-      BScroll.use(ScrollBar)
+      BScroll.use(MouseWheel);
+      BScroll.use(ScrollBar);
       this.BScroll = new BScroll(this.$refs.mainPanelScrollContent, {
         mouseWheel: true,
         scrollbar: true,
         bounce: false,
-        probeType: 2
-      })
-      this.BScroll.on('mousewheelMove', ({ y }) => {
-        this.SET_SCROLL_Y(y)
-      })
-      this.BScroll.on('scroll', ({ y }) => {
-        this.SET_SCROLL_Y(y)
-      })
-    }
-  }
-}
+        probeType: 2,
+      });
+      this.BScroll.on('mousewheelMove', ({y}) => {
+        this.SET_SCROLL_Y(y);
+      });
+      this.BScroll.on('scroll', ({y}) => {
+        this.SET_SCROLL_Y(y);
+      });
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .poster-editor-main {

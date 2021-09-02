@@ -12,27 +12,27 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'poster/poster.vuex'
-import { settingContent, settingItem, radioGroup } from 'poster/commonUI'
+import {mapActions, mapState} from 'poster/poster.vuex';
+import {settingContent, settingItem, radioGroup} from 'poster/commonUI';
 
 export default {
-  components: { settingContent, settingItem, radioGroup },
+  components: {settingContent, settingItem, radioGroup},
   data() {
     return {
       alignList: [
-        { label: '左对齐', value: 'alignLeft' },
-        { label: '居中', value: 'alignCenter' },
-        { label: '右对齐', value: 'alignRight' }
-      ]
-    }
+        {label: '左对齐', value: 'alignLeft'},
+        {label: '居中', value: 'alignCenter'},
+        {label: '右对齐', value: 'alignRight'},
+      ],
+    };
   },
   computed: {
-    ...mapState(['activeItems'])
+    ...mapState(['activeItems']),
   },
   methods: {
-    ...mapActions(['changeCompositionPosition'])
-  }
-}
+    ...mapActions(['changeCompositionPosition']),
+  },
+};
 </script>
 
 <style lang="scss" scoped>

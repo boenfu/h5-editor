@@ -7,14 +7,14 @@
 </template>
 
 <script>
-import widgetCompositionControl from './widgets/widgetCompositionControl'
+import widgetCompositionControl from './widgets/widgetCompositionControl';
 export default {
-  components: { widgetCompositionControl },
+  components: {widgetCompositionControl},
   data() {
-    return {}
+    return {};
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 <style lang="scss" scoped>
 .poster-editor-control {

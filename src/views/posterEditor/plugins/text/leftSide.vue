@@ -11,18 +11,15 @@
         {{ `添加${item.text}` }}
       </li>
     </ul>
-    <el-button
-      class="add-text"
-      size="mini"
-      type="plain"
-      @click="addText(null)"
-    >添加文本</el-button>
+    <el-button class="add-text" size="mini" type="plain" @click="addText(null)"
+      >添加文本</el-button
+    >
   </div>
 </template>
 
 <script>
-import { mapActions } from 'poster/poster.vuex'
-import { TextWidget } from '../../widgetConstructor'
+import {mapActions} from 'poster/poster.vuex';
+import Widget from './constructor';
 
 export default {
   data() {
@@ -31,53 +28,53 @@ export default {
         {
           text: '标题',
           style: {
-            fontSize: '24px'
-          }
+            fontSize: '24px',
+          },
         },
         {
           text: '副标题',
           style: {
-            fontSize: '18px'
-          }
+            fontSize: '18px',
+          },
         },
         {
           text: '正文内容',
           style: {
-            fontSize: '14px'
-          }
+            fontSize: '14px',
+          },
         },
         {
           text: '粗体文本',
           style: {
             fontSize: '14px',
-            fontWeight: 'bold'
-          }
+            fontWeight: 'bold',
+          },
         },
         {
           text: '斜体文本',
           style: {
             fontSize: '14px',
-            fontStyle: 'italic'
-          }
-        }
-      ]
-    }
+            fontStyle: 'italic',
+          },
+        },
+      ],
+    };
   },
   methods: {
     ...mapActions(['addItem']),
     addText(item) {
       if (item) {
         this.addItem(
-          new TextWidget({
-            wState: item
-          })
-        )
+          new Widget({
+            wState: item,
+          }),
+        );
       } else {
-        this.addItem(new TextWidget())
+        this.addItem(new Widget());
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .add-text-widget {

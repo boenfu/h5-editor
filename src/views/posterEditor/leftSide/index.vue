@@ -4,7 +4,7 @@
       <li v-for="item in widgets" :key="item.type" @click="current = item">
         <el-tooltip
           class="widget-item"
-          :class="{ active: current.type === item.type }"
+          :class="{active: current.type === item.type}"
           effect="dark"
           :content="item.name"
           placement="right"
@@ -21,67 +21,33 @@
 </template>
 
 <script>
-import imageWidget from './widgets/imageWidget'
-import backgroundWidget from './widgets/backgroundWidget'
-import textWidget from './widgets/textWidget'
-import rectWidget from './widgets/rectWidget'
-import { mapActions } from 'poster/poster.vuex'
-import { BackgroundWidget } from 'poster/widgetConstructor'
-import { pluginMap, pluginWrap } from '../plugins'
+import {mapActions} from 'poster/poster.vuex';
+import BackgroundWidget from 'poster/plugins/background/constructor';
+import {pluginMap, pluginWrap} from '../plugins';
 
 // 注册插件
-const pluginWidgets = []
-const pluginComponents = {}
+const pluginWidgets = [];
+const pluginComponents = {};
 for (const [pluginName, options] of Object.entries(pluginMap.leftSide)) {
-  const { name, icon, component } = options
+  const {name, icon, component} = options;
   pluginWidgets.push({
     type: pluginName,
     component: pluginName,
     name,
-    icon
-  })
-  pluginComponents[pluginName] = pluginWrap(component)
+    icon,
+  });
+  pluginComponents[pluginName] = pluginWrap(component);
 }
 
 export default {
   components: {
-    imageWidget,
-    backgroundWidget,
-    textWidget,
-    rectWidget,
-    ...pluginComponents
+    ...pluginComponents,
   },
   data() {
     return {
       current: null,
-      widgets: [
-        {
-          type: 'image',
-          component: 'image-widget',
-          name: '图片',
-          icon: 'el-icon-picture'
-        },
-        {
-          type: 'background',
-          component: 'background-widget',
-          name: '背景',
-          icon: 'icon-background'
-        },
-        {
-          type: 'text',
-          component: 'text-widget',
-          name: '文本',
-          icon: 'icon-text'
-        },
-        {
-          type: 'rect',
-          component: 'rect-widget',
-          name: '矩形',
-          icon: 'icon-rect'
-        },
-        ...pluginWidgets
-      ]
-    }
+      widgets: pluginWidgets,
+    };
   },
   methods: {
     ...mapActions(['addBackground']),
@@ -90,16 +56,16 @@ export default {
         new BackgroundWidget({
           backgroundColor: '#fff',
           isSolid: true,
-          lock: true
-        })
-      )
-    }
+          lock: true,
+        }),
+      );
+    },
   },
   created() {
-    this.current = this.widgets[0]
-    this.init()
-  }
-}
+    this.current = this.widgets[0];
+    this.init();
+  },
+};
 </script>
 
 <style lang="scss" scoped>

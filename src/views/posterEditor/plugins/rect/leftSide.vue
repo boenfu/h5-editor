@@ -1,30 +1,28 @@
 <template>
   <div class="add-text-widget">
-    <el-button
-      class="add-text"
-      size="mini"
-      type="plain"
-      @click="addRect"
-    >添加矩形</el-button>
+    <el-button class="add-text" size="mini" type="plain" @click="addRect"
+      >添加矩形</el-button
+    >
   </div>
 </template>
 
 <script>
-import { mapActions } from 'poster/poster.vuex'
-import { DrawRectWidget } from '../../widgetConstructor'
+import {mapActions} from 'poster/poster.vuex';
+import Widget from './assistConstructor';
+
 export default {
   data() {
     return {
-      recommendList: []
-    }
+      recommendList: [],
+    };
   },
   methods: {
     ...mapActions(['addAssistWidget']),
     addRect() {
-      this.addAssistWidget(new DrawRectWidget())
-    }
-  }
-}
+      this.addAssistWidget(new Widget());
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .add-text-widget {

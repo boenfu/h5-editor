@@ -1,18 +1,6 @@
 <template>
   <div class="functional-bar">
     <ul>
-      <li class="github">
-        <el-tooltip
-          effect="dark"
-          content="希望大佬们能给我点颗星⭐"
-          placement="bottom"
-          transition="el-zoom-in-center"
-        >
-          <span>
-            <a href="https://github.com/a7650/h5-editor" target="blank">GitHub</a>
-          </span>
-        </el-tooltip>
-      </li>
       <li @click="savePage">
         <i class="el-icon-upload" />
         <span>
@@ -21,43 +9,39 @@
           </el-badge>
         </span>
       </li>
-      <li @click="closeEditor">
-        <i class="el-icon-circle-close" />
-        <span>关闭编辑器</span>
-      </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'poster/poster.vuex'
+import {mapActions, mapState} from 'poster/poster.vuex';
 export default {
   data() {
     return {
-      savePageLoading: false
-    }
+      savePageLoading: false,
+    };
   },
   computed: {
-    ...mapState(['isUnsavedState', 'posterItems'])
+    ...mapState(['isUnsavedState', 'posterItems']),
   },
   methods: {
     ...mapActions(['saveActivityPageConfig']),
     closeEditor() {
-      this.$router.back()
+      this.$router.back();
     },
     savePage() {
-      if (this.savePageLoading) return
+      if (this.savePageLoading) return;
       if (this.posterItems.length === 0) {
-        this.$message.error('当前画布中未添加任何元素，请添加后再提交')
-        return
+        this.$message.error('当前画布中未添加任何元素，请添加后再提交');
+        return;
       }
-      this.savePageLoading = true
+      this.savePageLoading = true;
       this.saveActivityPageConfig().finally(() => {
-        this.savePageLoading = false
-      })
-    }
-  }
-}
+        this.savePageLoading = false;
+      });
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .functional-bar {
@@ -71,8 +55,6 @@ export default {
   z-index: 999;
   height: 24px;
   ul {
-    /* padding: 2px 0; */
-    /* height: 22px; */
     height: 100%;
   }
   li {
@@ -98,9 +80,6 @@ export default {
     span {
       font-size: 14px;
     }
-  }
-  .github{
-    color: #fff;
   }
 }
 </style>

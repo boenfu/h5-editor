@@ -3,9 +3,7 @@
     <el-collapse v-model="activeNames">
       <el-collapse-item name="text">
         <template #title>
-          <div class="header">
-            文字
-          </div>
+          <div class="header">文字</div>
         </template>
         <setting-content>
           <setting-row>
@@ -16,7 +14,7 @@
             </template>
             <template #right>
               <setting-item label="字号">
-                <input v-model.number="inFontSize" type="number">
+                <input v-model.number="inFontSize" type="number" />
               </setting-item>
             </template>
           </setting-row>
@@ -41,12 +39,12 @@
           <setting-row>
             <template #left>
               <setting-item label="行间距">
-                <input v-model.number="inLineHeight" type="number">
+                <input v-model.number="inLineHeight" type="number" />
               </setting-item>
             </template>
             <template #right>
               <setting-item label="字间距">
-                <input v-model.number="inLetterSpacing" type="number">
+                <input v-model.number="inLetterSpacing" type="number" />
               </setting-item>
             </template>
           </setting-row>
@@ -76,14 +74,14 @@
             <el-color-picker v-model="inBackgroundColor" size="small" />
           </setting-item>
           <setting-item label="内边距">
-            <input v-model.number="inPadding" type="number">
+            <input v-model.number="inPadding" type="number" />
           </setting-item>
           <!-- <setting-item label="字体样式">
               <input v-model.number="inPadding" type="number">
             </setting-item> -->
           <setting-item label="边框颜色、宽度">
             <el-color-picker v-model="inBorderColor" size="small" />
-            <input v-model.number="inBorderWidth" type="number">
+            <input v-model.number="inBorderWidth" type="number" />
           </setting-item>
           <setting-item label="边框样式">
             <radio-group v-model="inBorderStyle" :list="borderStyleList" />
@@ -92,9 +90,7 @@
       </el-collapse-item>
       <el-collapse-item name="position">
         <template #title>
-          <div class="header">
-            位置
-          </div>
+          <div class="header">位置</div>
         </template>
         <position-control :drag-info="dragInfo" />
       </el-collapse-item>
@@ -103,141 +99,142 @@
 </template>
 
 <script>
-import { commonMixin } from './common/mixins'
+import {commonMixin} from 'poster/control/widgets/common/mixins';
+
 export default {
   mixins: [commonMixin],
   data() {
     return {
       activeNames: ['text', 'position', 'borderAndBackground'],
       textAlignList: [
-        { label: '左对齐', value: 'left' },
-        { label: '居中', value: 'center' },
-        { label: '右对齐', value: 'right' }
+        {label: '左对齐', value: 'left'},
+        {label: '居中', value: 'center'},
+        {label: '右对齐', value: 'right'},
       ],
       textFotmatList: [
-        { label: '粗体', value: 'bold' },
-        { label: '斜体', value: 'italic' },
-        { label: '划线', value: 'line-through' }
+        {label: '粗体', value: 'bold'},
+        {label: '斜体', value: 'italic'},
+        {label: '划线', value: 'line-through'},
       ],
       borderStyleList: [
-        { label: '实线', value: 'solid' },
-        { label: '虚线', value: 'dashed' },
-        { label: '双线', value: 'double ' },
-        { label: '点线', value: 'dotted ' }
-      ]
-    }
+        {label: '实线', value: 'solid'},
+        {label: '虚线', value: 'dashed'},
+        {label: '双线', value: 'double '},
+        {label: '点线', value: 'dotted '},
+      ],
+    };
   },
   computed: {
     inColor: {
       get() {
-        return this.style.color
+        return this.style.color;
       },
       set(val) {
-        this.updateStyle('color', val)
-      }
+        this.updateStyle('color', val);
+      },
     },
     inFontSize: {
       get() {
-        return parseInt(this.style.fontSize)
+        return parseInt(this.style.fontSize);
       },
       set(val) {
-        this.updateStyle('fontSize', val + 'px')
-      }
+        this.updateStyle('fontSize', val + 'px');
+      },
     },
     inPadding: {
       get() {
-        return parseInt(this.style.padding)
+        return parseInt(this.style.padding);
       },
       set(val) {
-        this.updateStyle('padding', val + 'px')
-      }
+        this.updateStyle('padding', val + 'px');
+      },
     },
     inBorderColor: {
       get() {
-        return this.style.borderColor
+        return this.style.borderColor;
       },
       set(val) {
-        this.updateStyle('borderColor', val)
-      }
+        this.updateStyle('borderColor', val);
+      },
     },
     inBorderWidth: {
       get() {
-        return parseInt(this.style.borderWidth)
+        return parseInt(this.style.borderWidth);
       },
       set(val) {
-        this.updateStyle('borderWidth', val + 'px')
-      }
+        this.updateStyle('borderWidth', val + 'px');
+      },
     },
     inBorderStyle: {
       get() {
-        return this.style.borderStyle
+        return this.style.borderStyle;
       },
       set(val) {
-        this.updateStyle('borderStyle', val)
-      }
+        this.updateStyle('borderStyle', val);
+      },
     },
     inLineHeight: {
       get() {
-        return parseInt(this.style.lineHeight)
+        return parseInt(this.style.lineHeight);
       },
       set(val) {
-        this.updateStyle('lineHeight', val + '%')
-      }
+        this.updateStyle('lineHeight', val + '%');
+      },
     },
     inLetterSpacing: {
       get() {
-        return parseInt(this.style.letterSpacing)
+        return parseInt(this.style.letterSpacing);
       },
       set(val) {
-        this.updateStyle('letterSpacing', val + 'px')
-      }
+        this.updateStyle('letterSpacing', val + 'px');
+      },
     },
     inTextAlign: {
       get() {
-        return this.style.textAlign
+        return this.style.textAlign;
       },
       set(val) {
-        this.updateStyle('textAlign', val)
-      }
+        this.updateStyle('textAlign', val);
+      },
     },
     inBackgroundColor: {
       get() {
-        return this.style.backgroundColor
+        return this.style.backgroundColor;
       },
       set(val) {
-        this.updateStyle('backgroundColor', val)
-      }
+        this.updateStyle('backgroundColor', val);
+      },
     },
     inTextFormat: {
       get() {
-        const result = []
+        const result = [];
         if (this.style.fontWeight === 'bold') {
-          result.push('bold')
+          result.push('bold');
         }
         if (this.style.fontStyle === 'italic') {
-          result.push('italic')
+          result.push('italic');
         }
         if (this.style.textDecoration === 'line-through') {
-          result.push('line-through')
+          result.push('line-through');
         }
-        return result
+        return result;
       },
       set(list) {
-        const operation = list._operation
-        const value = list._value
-        const newValue = operation === 'add' ? value : ''
+        const operation = list._operation;
+        const value = list._value;
+        const newValue = operation === 'add' ? value : '';
         if (value === 'bold') {
-          this.updateStyle('fontWeight', newValue)
+          this.updateStyle('fontWeight', newValue);
         } else if (value === 'italic') {
-          this.updateStyle('fontStyle', newValue)
+          this.updateStyle('fontStyle', newValue);
         } else if (value === 'line-through') {
-          this.updateStyle('textDecoration', newValue)
+          this.updateStyle('textDecoration', newValue);
         }
-      }
-    }
+      },
+    },
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 <style lang="scss" scoped>
 .text-control {

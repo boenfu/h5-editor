@@ -3,7 +3,7 @@
     class="main-panel"
     :style="{
       width: canvasSize.width + 'px',
-      height: canvasSize.height + 'px'
+      height: canvasSize.height + 'px',
     }"
     @mousedown.prevent.stop=""
   >
@@ -35,18 +35,27 @@
 </template>
 
 <script>
-import { mapState } from '../poster.vuex'
-import widgetContainer from './widgets/widgetContainer'
-import backgroundWidget from './widgets/backgroundWidget'
-import drawRectWidget from './assistWidgets/drawRectWidget'
+import backgroundWidget from 'poster/plugins/background/widget';
+import {mapState} from '../poster.vuex';
+import widgetContainer from './widgets/widgetContainer';
+import drawRectWidget from './assistWidgets/drawRectWidget';
+import {pluginMap, pluginWrap} from '../plugins';
+
+const pluginComponents = {};
+for (const [options] of Object.values(pluginMap.assistWidget)) {
+  const {componentName, component} = options;
+  pluginComponents[componentName] = pluginWrap(component);
+}
+
 export default {
   components: {
     widgetContainer,
     backgroundWidget,
-    drawRectWidget
+    drawRectWidget,
+    ...pluginComponents,
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
     ...mapState([
@@ -54,17 +63,14 @@ export default {
       'canvasSize',
       'background',
       'assistWidgets',
-      'pageTitle'
-    ])
-
-  }
-}
+      'pageTitle',
+    ]),
+  },
+};
 </script>
 <style lang="scss" scoped>
 .main-panel {
   background-color: #fff;
-  /* position: absolute; */
-  /* left: 50%; */
   margin: 0 auto;
   position: relative;
   user-select: none;
@@ -72,10 +78,7 @@ export default {
   transition-property: height;
   transition: 0.4s;
   cursor: initial;
-  .poster-item-container {
-    /* position: absolute;
-    top: 0; */
-  }
+
   .custom-contextmenu {
     z-index: 999;
   }

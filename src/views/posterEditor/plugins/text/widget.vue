@@ -29,33 +29,33 @@
 </template>
 
 <script>
-import { TextWidget } from 'poster/widgetConstructor'
-import { clickoutside } from 'poster/poster.directives'
-import textControl from 'poster/control/widgets/textControl'
-import { mapState, mapActions } from 'poster/poster.vuex'
+import {clickoutside} from 'poster/poster.directives';
+import {mapState, mapActions} from 'poster/poster.vuex';
+import textControl from './widgetControl.vue';
+import Widget from './constructor';
 
 export default {
-  components: { textControl },
-  directives: { clickoutside },
-  mixins: [TextWidget.widgetMixin()],
+  components: {textControl},
+  directives: {clickoutside},
+  mixins: [Widget.widgetMixin()],
   data() {
     return {
-      isEditing: false
-    }
+      isEditing: false,
+    };
   },
   computed: {
     ...mapState(['canvasSize']),
     text() {
-      return this.wState.text
+      return this.wState.text;
     },
     textStyle() {
-      return this.wState.style
-    }
+      return this.wState.style;
+    },
   },
   watch: {
     isEditing(newVal) {
-      this.$emit('draggableChange', !newVal)
-    }
+      this.$emit('draggableChange', !newVal);
+    },
   },
   created() {
     if (!this.item.isCopied) {
@@ -63,45 +63,45 @@ export default {
         w: 160,
         h: 50,
         x: (this.canvasSize.width - 160) / 2,
-        y: 200
-      })
+        y: 200,
+      });
     }
   },
   mounted() {
     this.$dragRef.$el.addEventListener('dblclick', () => {
-      this.openEditing()
-    })
+      this.openEditing();
+    });
   },
   methods: {
     ...mapActions(['setWidgetConfig', 'updateWidgetState']),
     getMenuList() {
-      return []
+      return [];
     },
     openEditing() {
-      this.isEditing = true
+      this.isEditing = true;
       this.$nextTick(() => {
-        const ref = this.$refs.textContainer
-        if (!ref) return
-        const selection = window.getSelection()
-        const range = document.createRange()
-        range.selectNodeContents(ref)
-        selection.removeAllRanges()
-        selection.addRange(range)
-      })
+        const ref = this.$refs.textContainer;
+        if (!ref) return;
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(ref);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      });
     },
     saveText(text) {
-      const ref = text || this.$refs.textContainer
-      this.isEditing = false
-      console.log(ref.innerHTML)
+      const ref = text || this.$refs.textContainer;
+      this.isEditing = false;
+      console.log(ref.innerHTML);
       this.updateWidgetState({
         keyPath: 'text',
         value: ref.innerHTML,
-        widgetId: this.item.id
-      })
-      console.log(this.text)
-    }
-  }
-}
+        widgetId: this.item.id,
+      });
+      console.log(this.text);
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .text-widget {

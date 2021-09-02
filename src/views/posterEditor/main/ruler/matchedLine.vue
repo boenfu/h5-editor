@@ -4,34 +4,34 @@
       v-for="(item, index) in matchedLine.col"
       :key="'col' + index"
       class="reference-line column"
-      :style="{ left: item + 'px' }"
+      :style="{left: item + 'px'}"
     />
     <div
       v-for="(item, index) in matchedLine.row"
       :key="'row' + index"
       class="reference-line row"
-      :style="{ top: item + 'px',...rowElPositionFix }"
+      :style="{top: item + 'px', ...rowElPositionFix}"
     />
   </div>
 </template>
 
 <script>
-import { mapState } from 'poster/poster.vuex'
+import {mapState} from 'poster/poster.vuex';
 export default {
   props: {
     rowElPositionFix: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
-    return {}
+    return {};
   },
   computed: {
-    ...mapState(['matchedLine'])
+    ...mapState(['matchedLine']),
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 <style lang="scss" scoped>
 .reference-line {

@@ -9,9 +9,9 @@ export interface PageConfig {
     config?: string
     content?: string
   }
-  items: Array<{
+  items: {
     type: WidgetType
     config?: string
     content?: string
-  }>
+  }[]
 }

@@ -17,11 +17,6 @@
             <i class="el-icon-s-tools" />
             编辑画布
           </button>
-          <!-- <i
-            slot="reference"
-            class="el-icon-paperclip change-size"
-            title="修改画布大小"
-          /> -->
         </el-popover>
       </div>
       <component :is="item" v-for="item in pluginNames" :key="item" />
@@ -33,30 +28,30 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'poster/poster.vuex'
-import changeSize from './changeSize'
-import { pluginMap, pluginWrap } from '../../plugins'
-const pluginComponents = {}
-const pluginNames = []
+import {mapState, mapGetters} from 'poster/poster.vuex';
+import changeSize from './changeSize';
+import {pluginMap, pluginWrap} from '../../plugins';
+const pluginComponents = {};
+const pluginNames = [];
 for (const [pluginName, options] of Object.entries(pluginMap.bottomBar)) {
-  const { component } = options
-  pluginComponents[pluginName] = pluginWrap(component)
-  pluginNames.push(pluginName)
+  const {component} = options;
+  pluginComponents[pluginName] = pluginWrap(component);
+  pluginNames.push(pluginName);
 }
 export default {
-  components: { changeSize, ...pluginComponents },
+  components: {changeSize, ...pluginComponents},
   data() {
-    return {}
+    return {};
   },
   computed: {
     ...mapState(['canvasSize']),
     ...mapGetters(['posterItemIds']),
     pluginNames() {
-      return pluginNames
-    }
+      return pluginNames;
+    },
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 <style lang="scss" scoped>
 .bottom-bar {
@@ -89,7 +84,7 @@ export default {
     span {
       padding-left: 2px;
     }
-    .change-size{
+    .change-size {
       font-size: 12px;
       background-color: none;
       border: 1px solid $colorBorder;

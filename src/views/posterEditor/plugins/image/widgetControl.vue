@@ -13,9 +13,7 @@
       </el-collapse-item> -->
       <el-collapse-item name="position">
         <template #title>
-          <div class="header">
-            位置
-          </div>
+          <div class="header">位置</div>
         </template>
         <position-control :drag-info="dragInfo" />
       </el-collapse-item>
@@ -24,16 +22,16 @@
 </template>
 
 <script>
-import { commonMixin } from './common/mixins'
+import {commonMixin} from 'poster/control/widgets/common/mixins';
 
 export default {
   mixins: [commonMixin],
   data() {
     return {
-      activeNames: ['image', 'position']
-    }
-  }
-}
+      activeNames: ['image', 'position'],
+    };
+  },
+};
 </script>
 <style lang="scss" scoped>
 .image-control {

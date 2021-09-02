@@ -13,7 +13,7 @@
         <li
           v-for="(item, index) in recommendColor"
           :key="index"
-          :style="{ backgroundColor: `rgb(${item})` }"
+          :style="{backgroundColor: `rgb(${item})`}"
           @click="selectRecommend(`rgb(${item})`)"
         />
       </ul>
@@ -24,16 +24,17 @@
       size="mini"
       type="plain"
       @click="selectImgHandler"
-    >添加背景图片</el-button>
-    <input ref="input" type="file" style="display:none" @change="selectImg">
+      >添加背景图片</el-button
+    >
+    <input ref="input" type="file" style="display: none" @change="selectImg" />
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'poster/poster.vuex'
-import { BackgroundWidget } from '../../widgetConstructor'
-import { uploadActivityImgAssets } from '@/api/activity'
-import { validateImage } from '@/utils/imageHelpers'
+import {mapActions, mapState} from 'poster/poster.vuex';
+import {uploadActivityImgAssets} from '@/api/activity';
+import {validateImage} from '@/utils/imageHelpers';
+import Widget from './constructor';
 
 export default {
   data() {
@@ -60,57 +61,57 @@ export default {
         '178,190,126',
         '114,111,128',
         '57,13,49',
-        '90,61,66'
-      ]
-    }
+        '90,61,66',
+      ],
+    };
   },
   computed: {
-    ...mapState(['canvasSize'])
+    ...mapState(['canvasSize']),
   },
   methods: {
     ...mapActions(['addBackground']),
     backgroundColorChange() {
       this.addBackground(
-        new BackgroundWidget({
+        new Widget({
           lock: true,
           wState: {
             isSolid: true,
             style: {
-              backgroundColor: this.backgroundColor
-            }
-          }
-        })
-      )
+              backgroundColor: this.backgroundColor,
+            },
+          },
+        }),
+      );
     },
     selectRecommend(rgb) {
-      this.backgroundColor = rgb
-      this.backgroundColorChange()
+      this.backgroundColor = rgb;
+      this.backgroundColorChange();
     },
     selectImgHandler() {
-      this.$refs.input.click()
+      this.$refs.input.click();
     },
-    async selectImg({ currentTarget: inputNode }) {
+    async selectImg({currentTarget: inputNode}) {
       try {
-        const file = inputNode.files
-        const imgFile = file && file[0]
-        await validateImage(imgFile)
-        const src = await uploadActivityImgAssets(imgFile)
+        const file = inputNode.files;
+        const imgFile = file && file[0];
+        await validateImage(imgFile);
+        const src = await uploadActivityImgAssets(imgFile);
         this.addBackground(
-          new BackgroundWidget({
+          new Widget({
             wState: {
               src,
-              isSolid: false
-            }
-          })
-        )
+              isSolid: false,
+            },
+          }),
+        );
       } catch (e) {
-        console.error(e)
+        console.error(e);
       } finally {
-        inputNode.value = ''
+        inputNode.value = '';
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .add-background-widget {

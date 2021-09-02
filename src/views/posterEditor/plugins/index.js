@@ -1,7 +1,12 @@
-// import { usePlugin } from './helpers'
-export { pluginMap, pluginWrap, pluginConstructorMap } from './helpers'
+import {usePlugin} from './helpers';
+export {pluginMap, pluginWrap, pluginConstructorMap} from './helpers';
 
-// import pluginA from './pluginA'
+import text from './text';
+import image from './image';
+import rect from './rect';
+import background from './background';
 
-// usePlugin('pluginA', pluginA)
-
+usePlugin('plugin-text', text);
+usePlugin('plugin-image', image);
+usePlugin('plugin-background', background);
+usePlugin('plugin-rect', rect);

@@ -35,23 +35,24 @@
 </template>
 
 <script>
-import vueDraggableResizable from 'poster/components/dragable/components/vue-draggable-resizable'
-import { widgetContainerMixin } from 'poster/widgetConstructor/widget'
-import exportWidgets from '../exportWidgets'
+import vueDraggableResizable from 'poster/components/dragable/components/vue-draggable-resizable';
+import {widgetContainerMixin} from 'poster/widgetConstructor/widget';
+import exportWidgets from '../exportWidgets';
 
 export default {
-  components: { vueDraggableResizable, ...exportWidgets },
+  components: {vueDraggableResizable, ...exportWidgets},
   mixins: [widgetContainerMixin()],
   data() {
     return {
-      draggable: true
-    }
-  }
-}
+      draggable: true,
+    };
+  },
+};
 </script>
 <style lang="scss" scoped>
 .drag-item {
   user-select: none;
+
   .text-container {
     box-sizing: border-box;
     margin: 10px;
@@ -59,6 +60,7 @@ export default {
     height: calc(100% - 20px);
     white-space: wrap;
     word-break: break-all;
+
     &.editing {
       position: relative;
     }

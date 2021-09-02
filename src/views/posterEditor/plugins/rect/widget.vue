@@ -8,22 +8,22 @@
 </template>
 
 <script>
-import rectControl from '../../control/widgets/rectControl'
-import { RectWidget } from 'poster/widgetConstructor'
-// import { mapGetters, mapActions } from 'poster/poster.vuex'
+import Widget from './constructor';
+import rectControl from './widgetControl.vue';
+
 export default {
-  components: { rectControl },
-  mixins: [RectWidget.widgetMixin()],
+  components: {rectControl},
+  mixins: [Widget.widgetMixin()],
   data() {
-    return {}
+    return {};
   },
   computed: {
     rectStyleFilter() {
-      return this.wState.style
-    }
+      return this.wState.style;
+    },
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 <style lang="scss" scoped>
 .drag-item {
