@@ -8,6 +8,7 @@ export default {
     icon: 'icon-text',
     name: '文本',
     component: leftSide,
+    order: 1,
   },
   widget: {
     component: widget,

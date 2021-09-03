@@ -8,6 +8,7 @@ export default {
     icon: 'el-icon-picture',
     name: '图片',
     component: leftSide,
+    order: 2,
   },
   widget: {
     component: widget,

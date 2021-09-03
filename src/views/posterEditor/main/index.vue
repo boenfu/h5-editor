@@ -33,6 +33,8 @@ import functionalBar from './functionalBar';
 import BScroll from '@better-scroll/core';
 import MouseWheel from '@better-scroll/mouse-wheel';
 import ScrollBar from '@better-scroll/scroll-bar';
+import {EDITOR_OFFSET} from 'poster/const';
+
 export default {
   components: {
     mainPanel,
@@ -47,18 +49,20 @@ export default {
       count: 1,
       maskBorderWidth: '',
       maskHeight: 0,
+      maskWidth: 0,
       contextmenuVisible: false,
       contextmenuPosition: {x: 0, y: 0},
       menuList: [],
     };
   },
   computed: {
-    ...mapState(['canvasSize', 'mainPanelScrollY']),
+    ...mapState(['canvasSize', 'mainPanelScrollY', 'mainPanelScrollX']),
     maskStyle() {
       return {
+        width: this.maskWidth + 'px',
         height: this.maskHeight + 'px',
         borderWidth: this.maskBorderWidth,
-        transform: `translateY(${this.mainPanelScrollY}px)`,
+        transform: `translate(${this.mainPanelScrollX}px,${this.mainPanelScrollY}px)`,
       };
     },
   },
@@ -84,28 +88,33 @@ export default {
     window.removeEventListener('resize', this.getMaskSizeThrottle);
   },
   methods: {
-    ...mapMutations(['SET_CANVAS_POSITION', 'SET_SCROLL_Y']),
+    ...mapMutations(['SET_CANVAS_POSITION', 'SET_SCROLL_Y', 'SET_SCROLL_X']),
     /**
      * 重新设置mask的size和canvas的position
      */
     getMaskSize() {
       const mainRef = this.$refs.main;
-      const left = (mainRef.clientWidth - this.canvasSize.width) / 2;
-      const top = 50;
-      const bottom = Math.max(
-        50,
-        mainRef.clientHeight - top - this.canvasSize.height,
+
+      const right = Math.max(
+        EDITOR_OFFSET,
+        mainRef.clientWidth - EDITOR_OFFSET - this.canvasSize.width,
       );
-      this.maskBorderWidth = `${50}px ${Math.max(
-        0,
-        left,
-      )}px ${bottom}px ${Math.max(0, left)}px`;
+
+      const bottom = Math.max(
+        EDITOR_OFFSET,
+        mainRef.clientHeight - EDITOR_OFFSET - this.canvasSize.height,
+      );
+      this.maskBorderWidth = `${EDITOR_OFFSET}px ${right}px ${bottom}px ${EDITOR_OFFSET}px`;
       this.maskHeight = Math.max(
         mainRef.clientHeight,
         this.canvasSize.height + 100,
       );
+      this.maskWidth = Math.max(
+        mainRef.clientWidth,
+        this.canvasSize.width + 100,
+      );
       const canvasPosition = {
-        top: 50,
+        top: (mainRef.clientHeight - this.canvasSize.height) / 2,
         left: (mainRef.clientWidth - this.canvasSize.width) / 2,
       };
       this.SET_CANVAS_POSITION(canvasPosition);
@@ -131,16 +140,25 @@ export default {
     initScroll() {
       BScroll.use(MouseWheel);
       BScroll.use(ScrollBar);
+
       this.BScroll = new BScroll(this.$refs.mainPanelScrollContent, {
+        scrollX: true,
         mouseWheel: true,
-        scrollbar: true,
+        scrollbar: {
+          interactive: true,
+          scrollbarTrackClickable: false,
+        },
         bounce: false,
         probeType: 2,
       });
-      this.BScroll.on('mousewheelMove', ({y}) => {
+
+      this.BScroll.on('mousewheelMove', ({x, y}) => {
+        this.SET_SCROLL_X(x);
         this.SET_SCROLL_Y(y);
       });
-      this.BScroll.on('scroll', ({y}) => {
+
+      this.BScroll.on('scroll', ({x, y}) => {
+        this.SET_SCROLL_X(x);
         this.SET_SCROLL_Y(y);
       });
     },
@@ -149,22 +167,20 @@ export default {
 </script>
 <style lang="scss" scoped>
 .poster-editor-main {
-  /* background-color: #d6d6d6; */
   position: relative;
   overflow: hidden;
+  height: 100%;
+
   .main-panel-scroll-content {
     width: 100%;
     height: 100%;
     cursor: grab;
+    white-space: nowrap;
   }
   .main-panel-contaienr {
-    width: 100%;
-    padding: 50px 0;
+    display: inline-block;
+    padding: 50px;
     position: relative;
-    /* overflow-y: scroll; */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* padding: 50px 0; */
   }
   .mask {
     width: 100%;

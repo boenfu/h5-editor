@@ -2,17 +2,17 @@
   <div class="bottom-bar">
     <div class="left">
       <div class="canvas-size">
-        画布大小:
-        <span>{{ `宽${canvasSize.width}px` }}</span>
-        <span>{{ `高${canvasSize.height}px` }}</span>
+        画布大小(px)
+        <span>{{ canvasSize.width }} x {{ canvasSize.height }} </span>
         <el-popover
+          v-model="resizing"
           placement="top"
           title="修改画布大小"
           width="200"
           trigger="click"
-          transition="el-zoom-in-center"
+          transition="none"
         >
-          <change-size />
+          <change-size v-if="resizing" />
           <button slot="reference" title="编辑画布" class="change-size">
             <i class="el-icon-s-tools" />
             编辑画布
@@ -38,10 +38,16 @@ for (const [pluginName, options] of Object.entries(pluginMap.bottomBar)) {
   pluginComponents[pluginName] = pluginWrap(component);
   pluginNames.push(pluginName);
 }
+
 export default {
-  components: {changeSize, ...pluginComponents},
+  components: {
+    changeSize,
+    ...pluginComponents,
+  },
   data() {
-    return {};
+    return {
+      resizing: false,
+    };
   },
   computed: {
     ...mapState(['canvasSize']),
@@ -71,6 +77,7 @@ export default {
   font-size: 12px;
   color: $colorTextL;
   justify-content: space-between;
+
   .left {
     max-width: 70%;
     display: flex;
@@ -84,21 +91,12 @@ export default {
     span {
       padding-left: 2px;
     }
+
     .change-size {
       font-size: 12px;
       background-color: none;
       border: 1px solid $colorBorder;
     }
-    /* .change-size {
-      font-size: 16px;
-      margin-left: 4px;
-      cursor: pointer;
-      &:hover {
-        color: #000;
-      }
-    } */
-  }
-  .widget-count {
   }
 }
 </style>

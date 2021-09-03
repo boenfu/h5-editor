@@ -7,6 +7,7 @@ export default {
     icon: 'icon-background',
     name: '背景',
     component: leftSide,
+    order: 3,
   },
   widget: {
     component: widget,

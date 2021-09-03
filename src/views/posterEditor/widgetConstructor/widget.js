@@ -1,5 +1,6 @@
 import uniqueId from 'lodash/uniqueId';
 import {mapGetters, mapActions} from 'poster/poster.vuex';
+import {EDITOR_OFFSET} from 'poster/const';
 import {baseCommandStrat, baseMenuList} from './helpers/commandStrat';
 import store from '@/store';
 import _merge from 'lodash/merge';
@@ -343,7 +344,6 @@ export function widgetContainerMixin(options) {
         }
         this.updateDragInfo({x, y, w, h});
         dragItemPosition[this.item.id] = this.dragInfo;
-        // this.onDrag(x, y)
       },
       onResizeStop() {
         this.resizing = false;
@@ -353,21 +353,26 @@ export function widgetContainerMixin(options) {
           this.moving = true;
           store.dispatch('poster/history/push');
         }
+
         // ctrl快捷键拖动复制
         if (!hasCopiedOnDrag && e && e.ctrlKey) {
           const lastCopiedWidgets = store.state.poster.copiedWidgets;
-          // const copyData = getCopyData(this.item, this.$refs.widget)
           const copyData = this.item;
+
           copyData._copyFrom = 'drag';
+
           store.dispatch('poster/copyWidget', copyData);
           store.dispatch('poster/pasteWidget');
           store.dispatch('poster/copyWidget', lastCopiedWidgets); // 恢复之前复制的组件
+
           hasCopiedOnDrag = true;
         }
+
         // 参考线吸附对齐
         if (!e.altKey) {
           canvasSize = canvasSize || store.state.poster.canvasSize;
           canvasPosition = canvasPosition || store.state.poster.canvasPosition;
+
           if (!referenceLineMap) {
             referenceLineMap = getReferenceLineMap(
               canvasSize,
@@ -376,14 +381,18 @@ export function widgetContainerMixin(options) {
               Object.assign({}, dragItemPosition, {[this.item.id]: null}),
             );
           }
+
           const maxX = x + this.dragInfo.w;
           const maxY = y + this.dragInfo.h;
+
           const widgetSelfLine = {
             row: [y, parseInt((y + maxY) / 2), maxY], // left - center - right
             col: [x, parseInt((x + maxX) / 2), maxX],
           };
+
           let newX = null;
           let newY = null;
+
           const matchedLine = {
             row: widgetSelfLine.row
               .map((i, index) => {
@@ -408,11 +417,13 @@ export function widgetContainerMixin(options) {
             col: widgetSelfLine.col
               .map((i, index) => {
                 let match = null;
+
                 Object.values(referenceLineMap.col).forEach(referItem => {
                   if (i >= referItem.min && i <= referItem.max) {
                     match = referItem.value;
                   }
                 });
+
                 if (match !== null) {
                   if (index === 0) {
                     newX = match;
@@ -426,7 +437,9 @@ export function widgetContainerMixin(options) {
               })
               .filter(i => i !== null),
           };
+
           let finalX, finalY;
+
           if (newX !== null) {
             finalX = newX;
             if (this.dragRef) {
@@ -436,6 +449,7 @@ export function widgetContainerMixin(options) {
           } else {
             finalX = x;
           }
+
           if (newY !== null) {
             finalY = newY;
             if (this.dragRef) {
@@ -445,11 +459,14 @@ export function widgetContainerMixin(options) {
           } else {
             finalY = y;
           }
+
           this.updateDragInfo({x: finalX, y: finalY});
+
           dragItemPosition[this.item.id] = this.dragInfo;
+
           this.setMatchedLine({
-            row: matchedLine.row.map(i => i + canvasPosition.top),
-            col: matchedLine.col.map(i => i + canvasPosition.left),
+            row: matchedLine.row.map(i => i + EDITOR_OFFSET),
+            col: matchedLine.col.map(i => i + EDITOR_OFFSET),
           });
         } else {
           this.updateDragInfo({x, y});
@@ -458,10 +475,12 @@ export function widgetContainerMixin(options) {
       onDragStop(e) {
         if (this.moving) {
           this.moving = false;
+
           hasCopiedOnDrag = false;
           canvasSize = null;
           canvasPosition = null;
           referenceLineMap = null;
+
           this.removeMatchedLine();
         } else if (!e.ctrlKey) {
           this.replaceActiveItems([this.item]);
@@ -472,6 +491,7 @@ export function widgetContainerMixin(options) {
           this.rotating = true;
           store.dispatch('poster/history/push');
         }
+
         this.updateDragInfo({rotateZ: (e > 0 ? e : 360 + e) % 360});
       },
       onRotateStop() {

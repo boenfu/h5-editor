@@ -76,7 +76,9 @@ export default {
   flex-direction: column;
   font-size: 14px;
   user-select: none;
-  z-index: 1001;
+  z-index: 9999;
+  overflow: hidden;
+
   .header {
     height: 30px;
     display: flex;
@@ -84,11 +86,18 @@ export default {
     line-height: 30px;
     box-sizing: border-box;
     padding-left: 10px;
+
     .title {
       height: 30px;
       flex: 1;
       cursor: move;
+
+      span {
+        font-size: 0.4em;
+        opacity: 0.4;
+      }
     }
+
     i {
       cursor: pointer;
       width: 30px;
@@ -99,7 +108,6 @@ export default {
   .content {
     width: 100%;
     flex: 1;
-    /* overflow-y: scroll; */
     background-color: #1d2024;
     .draggable-container {
       height: 100%;

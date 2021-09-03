@@ -21,8 +21,8 @@ function getState() {
     pageConfigId: '',
     pageTitle: '',
     canvasSize: {
-      width: 338,
-      height: 600,
+      width: 1920,
+      height: 1080,
     },
     canvasPosition: {
       top: null,
@@ -32,7 +32,7 @@ function getState() {
     posterItems: [], // 组件列表
     activeItems: [], // 当前选中的组件
     assistWidgets: [], // 辅助组件
-    layerPanelOpened: true, // 是否打开图层面板
+    layerPanelOpened: false, // 是否打开图层面板
     referenceLineOpened: true, // 是否打开参考线
     copiedWidgets: null, // 当前复制的组件 WidgetItem[]
     referenceLine: {
@@ -41,6 +41,7 @@ function getState() {
       col: [],
     },
     matchedLine: null, // 匹配到的参考线 {row:[],col:[]}
+    mainPanelScrollX: 0,
     mainPanelScrollY: 0,
     isUnsavedState: false, // 是否处于未保存状态
   };
@@ -77,6 +78,9 @@ const mutations = {
   },
   SET_SCROLL_Y(state, y) {
     state.mainPanelScrollY = y;
+  },
+  SET_SCROLL_X(state, x) {
+    state.mainPanelScrollX = x;
   },
   [MTS.SET_CANVAS_POSITION](state, data) {
     state.canvasPosition = data;

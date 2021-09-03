@@ -193,6 +193,7 @@ export default {
   height: 100%;
   background-color: #fff;
   position: fixed;
+
   &.init-loading {
     filter: blur(6px);
   }
@@ -205,18 +206,21 @@ export default {
   .left-side {
     height: 100%;
   }
+
   .poster-editor-main {
     flex: 1;
     height: 100%;
     box-sizing: border-box;
   }
+
   .extend-side-bar {
     width: 50px;
     height: 100%;
     border-left: 1px solid $colorBorder;
   }
+
   .poster-editor-control {
-    width: 200px;
+    width: 240px;
     height: 100%;
     box-sizing: border-box;
     border-left: 1px solid $colorBorder;

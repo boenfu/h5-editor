@@ -5,7 +5,7 @@
         effect="dark"
         content="撤销 ctrl+z"
         placement="left"
-        transition="el-zoom-in-center"
+        transition="el-zoom-in-left"
       >
         <div class="item" :class="{disabled: !couldUndo}" @click="undo">
           <i class="icon-undo" />
@@ -15,7 +15,7 @@
         effect="dark"
         content="恢复 ctrl+shift+z"
         placement="left"
-        transition="el-zoom-in-center"
+        transition="el-zoom-in-left"
       >
         <div
           style="transform: rotateY(180deg)"
@@ -30,7 +30,7 @@
         effect="dark"
         content="图层面板 ctrl+L"
         placement="left"
-        transition="el-zoom-in-center"
+        transition="el-zoom-in-left"
       >
         <div
           class="item"
@@ -44,14 +44,14 @@
         effect="dark"
         content="参考线 ctrl+h"
         placement="left"
-        transition="el-zoom-in-center"
+        transition="el-zoom-in-left"
       >
         <el-popover
           placement="left"
           title="参考线"
           width="200"
           trigger="click"
-          transition="el-zoom-in-center"
+          transition="el-zoom-in-left"
         >
           <reference-line />
           <div slot="reference" class="item">
@@ -63,7 +63,7 @@
         effect="dark"
         content="生成H5代码（Beta）"
         placement="left"
-        transition="el-zoom-in-center"
+        transition="el-zoom-in-left"
       >
         <div class="item" @click="exportH5">
           <i class="icon-h5" />
@@ -73,7 +73,7 @@
         effect="dark"
         content="生成海报"
         placement="left"
-        transition="el-zoom-in-center"
+        transition="el-zoom-in-left"
       >
         <div class="item" @click="exportPoster">
           <i class="icon-poster" />
@@ -83,7 +83,7 @@
         effect="dark"
         content="快捷键参考"
         placement="left"
-        transition="el-zoom-in-center"
+        transition="el-zoom-in-left"
       >
         <div class="item" @click="openSettingCenter('shortcut')">
           <i class="el-icon-thumb" />
@@ -93,7 +93,7 @@
         effect="dark"
         content="编辑器设置"
         placement="left"
-        transition="el-zoom-in-center"
+        transition="el-zoom-in-left"
       >
         <div class="item" @click="openSettingCenter">
           <i class="el-icon-set-up" />
@@ -105,7 +105,7 @@
         effect="dark"
         :content="item.name"
         placement="left"
-        transition="el-zoom-in-center"
+        transition="el-zoom-in-left"
       >
         <div class="item">
           <i :class="item.icon" />
@@ -117,7 +117,7 @@
       title="设置"
       width="600px"
       append-to-body
-      transition="el-zoom-in-center"
+      transition="el-zoom-in-left"
     >
       <setting-center ref="settingCenter" />
     </el-dialog>
@@ -187,14 +187,15 @@ export default {
 .list {
   width: 100%;
   height: 100%;
+
   .item {
     width: 50px;
     height: 50px;
     text-align: center;
     line-height: 50px;
     cursor: pointer;
-    /* transition: 0.2s; */
     border-radius: 4px;
+
     i {
       font-size: 18px;
       &.icon-undo {

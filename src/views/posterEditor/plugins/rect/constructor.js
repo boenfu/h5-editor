@@ -37,7 +37,7 @@ export default class RectWidget extends Widget {
             borderColor: '#000',
             borderWidth: 0, // px
             borderStyle: 'solid',
-            backgroundColor: '#2d51cc',
+            backgroundColor: '#5151D6',
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
             borderBottomLeftRadius: 0,

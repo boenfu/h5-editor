@@ -3,6 +3,7 @@
     <div class="item">
       <span class="label">宽度</span>
       <el-input
+        :ref="'width'"
         v-model.number="width"
         type="number"
         style="width: 120px"
@@ -43,13 +44,19 @@ export default {
       if (!(this.width && this.height)) {
         return;
       }
-      this.setCanvasSize({width: this.width, height: this.height});
+      this.setCanvasSize({
+        width: this.width,
+        height: this.height,
+      });
       this.seekBackgroundSize();
     },
   },
   created() {
     this.width = this.canvasWidth;
     this.height = this.canvasHeight;
+  },
+  mounted() {
+    this.$refs['width'].focus();
   },
 };
 </script>
@@ -61,6 +68,7 @@ export default {
 }
 .item {
   margin-bottom: 20px;
+
   .label {
     padding-right: 10px;
   }
