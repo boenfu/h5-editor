@@ -5,7 +5,7 @@
         v-for="(item, index) in list"
         :key="index"
         class="item"
-        :class="{ active: valueFormat.includes(item.value) }"
+        :class="{active: valueFormat.includes(item.value)}"
         :title="item.label"
         @click="select(item)"
       >
@@ -21,48 +21,48 @@
 export default {
   model: {
     event: 'change',
-    prop: 'value'
+    prop: 'value',
   },
   props: {
     list: {
       type: Array,
       default() {
-        return [] // [{label:'',value:''}]
-      }
+        return []; // [{label:'',value:''}]
+      },
     },
     value: {
       type: [String, Array],
-      default: ''
-    }
+      default: '',
+    },
   },
   computed: {
     valueFormat() {
-      return Array.isArray(this.value) ? this.value : [this.value]
-    }
+      return Array.isArray(this.value) ? this.value : [this.value];
+    },
   },
   methods: {
     select(item) {
-      let finalValue
+      let finalValue;
       if (typeof this.value === 'string') {
-        finalValue = this.value === item.value ? '' : item.value
-        this.$emit('change', finalValue)
+        finalValue = this.value === item.value ? '' : item.value;
+        this.$emit('change', finalValue);
       } else if (Array.isArray(this.value)) {
-        let operation = ''
-        const value = item.value
+        let operation = '';
+        const value = item.value;
         if (this.value.includes(item.value)) {
-          operation = 'remove'
-          finalValue = this.value.filter((i) => i !== item.value)
+          operation = 'remove';
+          finalValue = this.value.filter(i => i !== item.value);
         } else {
-          operation = 'add'
-          finalValue = [...this.value, item.value]
+          operation = 'add';
+          finalValue = [...this.value, item.value];
         }
-        finalValue._operation = operation
-        finalValue._value = value
-        this.$emit('change', finalValue)
+        finalValue._operation = operation;
+        finalValue._value = value;
+        this.$emit('change', finalValue);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -100,7 +100,7 @@ export default {
         border-radius: 0 4px 4px 0;
         border-right-width: 1px;
       }
-      &:hover{
+      &:hover {
         background-color: $colorThemeL;
       }
       &.active {

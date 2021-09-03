@@ -6,8 +6,8 @@
         v-for="(item, index) in referenceLine.col"
         :key="'col' + index + item"
         class="reference-line column"
-        :style="{ left: item + 'px' }"
-        @dblclick="removeReferenceLine({ type: 'col', index })"
+        :style="{left: item + 'px'}"
+        @dblclick="removeReferenceLine({type: 'col', index})"
         @mousedown="colHandleDown($event, index)"
       />
       <!-- 横向参考线 -->
@@ -15,8 +15,8 @@
         v-for="(item, index) in referenceLine.row"
         :key="'row' + index + item"
         class="reference-line row"
-        :style="{ top: item + 'px', ...rowElPositionFix }"
-        @dblclick="removeReferenceLine({ type: 'row', index })"
+        :style="{top: item + 'px', ...rowElPositionFix}"
+        @dblclick="removeReferenceLine({type: 'row', index})"
         @mousedown="rowHandleDown($event, index)"
       />
     </template>
@@ -32,7 +32,7 @@
       <div
         v-if="topMoving"
         class="reference-line column"
-        :style="{ left: columnX + 'px' }"
+        :style="{left: columnX + 'px'}"
       >
         <div class="tip" draggable="false" ondragstart="return false">
           {{ columnXInRuler }}
@@ -52,7 +52,7 @@
       <div
         v-if="leftMoving"
         class="reference-line row moving"
-        :style="{ top: rowY + 'px' }"
+        :style="{top: rowY + 'px'}"
       >
         <div class="tip" draggable="false" ondragstart="return false">
           {{ rowYInRuler }}
@@ -65,36 +65,36 @@
 </template>
 
 <script>
-import ruler from 'poster/utils/canvasRuler'
-import { mapState, mapActions } from 'poster/poster.vuex'
-import matchedLine from './matchedLine'
+import ruler from 'poster/utils/canvasRuler';
+import {mapState, mapActions} from 'poster/poster.vuex';
+import matchedLine from './matchedLine';
 
-const LEFT_SIDE_WIDTH = 240 // 左侧边栏的宽度
-const TOP_RULER_HEIGHT = 21 // 顶部标尺高度
+const LEFT_SIDE_WIDTH = 240; // 左侧边栏的宽度
+const TOP_RULER_HEIGHT = 21; // 顶部标尺高度
 
 export default {
-  components: { matchedLine },
+  components: {matchedLine},
   data() {
     return {
       topMoving: false,
       columnX: 0,
       leftMoving: false,
-      rowY: 0
-    }
+      rowY: 0,
+    };
   },
   computed: {
     ...mapState(['referenceLine', 'referenceLineOpened', 'mainPanelScrollY']),
     columnXInRuler() {
-      return this.columnX - TOP_RULER_HEIGHT
+      return this.columnX - TOP_RULER_HEIGHT;
     },
     rowYInRuler() {
-      return this.rowY - 50
+      return this.rowY - 50;
     },
     rowElPositionFix() {
       return {
-        transform: `translateY(${this.mainPanelScrollY}px)`
-      }
-    }
+        transform: `translateY(${this.mainPanelScrollY}px)`,
+      };
+    },
   },
   mounted() {
     ruler.initRow({
@@ -102,115 +102,115 @@ export default {
       height: TOP_RULER_HEIGHT,
       color: '#bac3c9',
       background: '#f4f7f8',
-      startGap: TOP_RULER_HEIGHT - 1
-    })
+      startGap: TOP_RULER_HEIGHT - 1,
+    });
     ruler.initColumn({
       el: this.$refs.leftRuler,
       width: TOP_RULER_HEIGHT,
       color: '#bac3c9',
       background: '#f4f7f8',
       startGap: 50 - 1,
-      maxScale: 501
-    })
+      maxScale: 501,
+    });
   },
   methods: {
     ...mapActions(['addReferenceLine', 'removeReferenceLine']),
     addColumn() {
-      this.addReferenceLine({ type: 'col', position: this.columnX })
+      this.addReferenceLine({type: 'col', position: this.columnX});
     },
     addRow() {
-      this.addReferenceLine({ type: 'row', position: this.rowY })
+      this.addReferenceLine({type: 'row', position: this.rowY});
     },
     topMouseEnter(e) {
-      this.topMoving = true
-      this.columnX = e.pageX - LEFT_SIDE_WIDTH
+      this.topMoving = true;
+      this.columnX = e.pageX - LEFT_SIDE_WIDTH;
     },
     topMouseMove(e) {
-      this.columnX = e.pageX - LEFT_SIDE_WIDTH
+      this.columnX = e.pageX - LEFT_SIDE_WIDTH;
     },
     topMouseLeave() {
       if (this.colHandleMoveReady) {
-        return
+        return;
       }
-      this.topMoving = false
+      this.topMoving = false;
     },
     topMouseUp() {
       if (this.colHandleMoveReady) {
-        return
+        return;
       }
-      this.addColumn()
+      this.addColumn();
     },
-    leftMouseEnter(e) {
-      this.leftMoving = true
+    leftMouseEnter() {
+      this.leftMoving = true;
       // this.rowY = e.pageY - this.mainPanelScrollY
     },
     leftMouseMove(e) {
-      this.rowY = e.pageY - this.mainPanelScrollY
+      this.rowY = e.pageY - this.mainPanelScrollY;
     },
     leftMouseLeave() {
       if (this.rowHandleMoveReady) {
-        return
+        return;
       }
-      this.leftMoving = false
+      this.leftMoving = false;
     },
     leftMouseUp() {
       if (this.rowHandleMoveReady) {
-        return
+        return;
       }
-      this.addRow()
+      this.addRow();
     },
     colHandleDown(e, index) {
-      this.colHandleMoveReady = true
-      let invoked = false
-      document.body.style.cursor = 'col-resize'
+      this.colHandleMoveReady = true;
+      let invoked = false;
+      document.body.style.cursor = 'col-resize';
       const mouseMoveFn = _e => {
         if (!invoked) {
-          this.removeReferenceLine({ type: 'col', index })
-          this.topMouseEnter(_e)
-          invoked = true
+          this.removeReferenceLine({type: 'col', index});
+          this.topMouseEnter(_e);
+          invoked = true;
         }
-        this.topMouseMove(_e)
-      }
+        this.topMouseMove(_e);
+      };
       const mouseUpFn = () => {
         if (invoked) {
-          this.addColumn()
+          this.addColumn();
         }
-        this.colHandleMoveReady = false
-        this.topMouseLeave()
-        document.removeEventListener('mouseup', mouseUpFn)
-        document.removeEventListener('mousemove', mouseMoveFn)
-        document.body.style.cursor = 'initial'
-      }
-      document.addEventListener('mousemove', mouseMoveFn)
-      document.addEventListener('mouseup', mouseUpFn)
+        this.colHandleMoveReady = false;
+        this.topMouseLeave();
+        document.removeEventListener('mouseup', mouseUpFn);
+        document.removeEventListener('mousemove', mouseMoveFn);
+        document.body.style.cursor = 'initial';
+      };
+      document.addEventListener('mousemove', mouseMoveFn);
+      document.addEventListener('mouseup', mouseUpFn);
     },
     rowHandleDown(e, index) {
-      this.rowHandleMoveReady = true
-      let invoked = false
-      document.body.style.cursor = 'row-resize'
+      this.rowHandleMoveReady = true;
+      let invoked = false;
+      document.body.style.cursor = 'row-resize';
       const mouseMoveFn = _e => {
         if (!invoked) {
-          this.removeReferenceLine({ type: 'row', index })
-          this.leftMouseEnter(_e)
-          invoked = true
+          this.removeReferenceLine({type: 'row', index});
+          this.leftMouseEnter(_e);
+          invoked = true;
         }
-        this.leftMouseMove(_e)
-      }
+        this.leftMouseMove(_e);
+      };
       const mouseUpFn = () => {
         if (invoked) {
-          this.addRow()
+          this.addRow();
         }
-        this.rowHandleMoveReady = false
-        this.leftMouseLeave()
-        document.removeEventListener('mouseup', mouseUpFn)
-        document.removeEventListener('mousemove', mouseMoveFn)
-        document.body.style.cursor = 'initial'
-      }
-      document.addEventListener('mousemove', mouseMoveFn)
-      document.addEventListener('mouseup', mouseUpFn)
-    }
-  }
-}
+        this.rowHandleMoveReady = false;
+        this.leftMouseLeave();
+        document.removeEventListener('mouseup', mouseUpFn);
+        document.removeEventListener('mousemove', mouseMoveFn);
+        document.body.style.cursor = 'initial';
+      };
+      document.addEventListener('mousemove', mouseMoveFn);
+      document.addEventListener('mouseup', mouseUpFn);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

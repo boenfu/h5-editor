@@ -1,13 +1,13 @@
 <template>
   <div class="reference-line-setting">
     <div>
-      <span>
-        打开参考线
-      </span>
+      <span> 打开参考线 </span>
       <el-switch v-model="referenceLineOpened" />
     </div>
     <div>
-      <el-button type="primary" size="mini" @click="removeAll">清空参考线</el-button>
+      <el-button type="primary" size="mini" @click="removeAll"
+        >清空参考线</el-button
+      >
     </div>
   </div>
 </template>
@@ -17,19 +17,19 @@ export default {
   computed: {
     referenceLineOpened: {
       get() {
-        return this.$store.state.poster.referenceLineOpened
+        return this.$store.state.poster.referenceLineOpened;
       },
       set(val) {
-        this.$store.dispatch('poster/setReferenceLineVisible', val)
-      }
-    }
+        this.$store.dispatch('poster/setReferenceLineVisible', val);
+      },
+    },
   },
   methods: {
-      removeAll() {
-        this.$store.dispatch('poster/removeAllReferenceLine')
-      }
-  }
-}
+    removeAll() {
+      this.$store.dispatch('poster/removeAllReferenceLine');
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

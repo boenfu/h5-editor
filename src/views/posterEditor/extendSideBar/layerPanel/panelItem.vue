@@ -9,7 +9,7 @@
       class="name"
       ondragstart="return false"
       @keydown.enter="saveName"
-    >
+    />
     <div v-else class="name" @dblclick="isEditing = true">
       {{ rename }}
     </div>
@@ -29,7 +29,7 @@
       <i
         class="el-icon-view"
         title="隐藏"
-        :class="{ hide: !item.visible }"
+        :class="{hide: !item.visible}"
         @click.stop="hide"
       />
     </div>
@@ -37,32 +37,32 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'poster/poster.vuex'
-import { clickoutside } from 'poster/poster.directives'
+import {mapActions, mapGetters} from 'poster/poster.vuex';
+import {clickoutside} from 'poster/poster.directives';
 export default {
-  directives: { clickoutside },
+  directives: {clickoutside},
   props: {
     item: {
       type: Object,
       default() {
-        return {}
-      }
-    }
+        return {};
+      },
+    },
   },
   data() {
     return {
       rename: '',
-      isEditing: false
-    }
+      isEditing: false,
+    };
   },
   computed: {
-    ...mapGetters(['activeItemIds'])
+    ...mapGetters(['activeItemIds']),
   },
   created() {
     if (this.item.type === 'text') {
-      this.rename = this.item.wState.text
+      this.rename = this.item.wState.text;
     } else {
-      this.rename = this.item.id
+      this.rename = this.item.id;
     }
   },
   methods: {
@@ -73,39 +73,39 @@ export default {
       'toggleItemVisible',
       'replaceActiveItems',
       'addActiveItem',
-      'removeActiveItem'
+      'removeActiveItem',
     ]),
     saveName() {
-      this.isEditing = false
+      this.isEditing = false;
     },
     select(e) {
       if (this.isEditing) {
-        return
+        return;
       }
       if (e.ctrlKey) {
         if (this.activeItemIds.includes(this.item.id)) {
-          this.removeActiveItem(this.item)
+          this.removeActiveItem(this.item);
         } else {
-          this.addActiveItem(this.item)
+          this.addActiveItem(this.item);
         }
       } else {
-        this.replaceActiveItems([this.item])
+        this.replaceActiveItems([this.item]);
       }
     },
     remove() {
-      this.removeItem(this.item)
+      this.removeItem(this.item);
     },
     lock() {
-      this.lockItem(this.item)
+      this.lockItem(this.item);
     },
     unlock() {
-      this.unlockItem(this.item)
+      this.unlockItem(this.item);
     },
     hide() {
-      this.toggleItemVisible({ item: this.item, visible: !this.item.visible })
-    }
-  }
-}
+      this.toggleItemVisible({item: this.item, visible: !this.item.visible});
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .panel-item {
@@ -153,8 +153,8 @@ export default {
     }
     .el-icon-view {
       position: relative;
-      &::after{
-        content: "";
+      &::after {
+        content: '';
         display: block;
         position: absolute;
         width: 0;
@@ -165,7 +165,7 @@ export default {
         left: 0;
         transform: rotateZ(36deg);
         transform-origin: top left;
-        transition: .2s;
+        transition: 0.2s;
       }
       &.hide::after {
         width: 18px;

@@ -30,10 +30,10 @@
 <script>
 export default {
   data() {
-    return {}
+    return {};
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>
 <style lang="scss" scoped>
 section {
@@ -49,9 +49,9 @@ section {
   font-size: 14px;
   color: $colorText;
   li {
-      margin-bottom: 10px;
+    margin-bottom: 10px;
     b {
-        padding-right: 10px;
+      padding-right: 10px;
     }
     span {
     }

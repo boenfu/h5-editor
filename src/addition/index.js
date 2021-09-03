@@ -1,11 +1,12 @@
-import directives from './directives/index'
-import prototype from './prototype'
-export default {
-    install(Vue) {
-        prototype(Vue)
+import directives from './directives/index';
+import prototype from './prototype';
 
-        Object.keys(directives).forEach(key => {
-            Vue.directive(key, directives[key])
-        })
-    }
-}
+export default {
+  install(Vue) {
+    prototype(Vue);
+
+    Object.keys(directives).forEach(key => {
+      Vue.directive(key, directives[key]);
+    });
+  },
+};

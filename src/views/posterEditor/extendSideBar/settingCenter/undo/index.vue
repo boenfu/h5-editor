@@ -16,30 +16,30 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'poster/poster.vuex'
+import {mapState, mapActions} from 'poster/poster.vuex';
 export default {
   data() {
-    return {}
+    return {};
   },
   computed: {
     ...mapState({
-      maxHistory: state => state.history.maxHistoryStackLength
+      maxHistory: state => state.history.maxHistoryStackLength,
     }),
     maxHistoryStackLength: {
       get() {
-        return this.maxHistory
+        return this.maxHistory;
       },
       set(val) {
-        this.setMaxHistory(val)
-      }
-    }
+        this.setMaxHistory(val);
+      },
+    },
   },
   methods: {
     ...mapActions({
-      setMaxHistory: 'history/setMaxHistory'
-    })
-  }
-}
+      setMaxHistory: 'history/setMaxHistory',
+    }),
+  },
+};
 </script>
 <style lang="scss" scoped>
 .el-input {

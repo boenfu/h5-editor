@@ -18,53 +18,53 @@ export default {
   props: {
     x: {
       type: Number,
-      default: 0
+      default: 0,
     },
     y: {
       type: Number,
-      default: 0
+      default: 0,
     },
     menuList: {
       type: Array,
       default() {
-        return []
-      }
-    }
+        return [];
+      },
+    },
   },
   data() {
     return {
-      height: 0
-    }
+      height: 0,
+    };
   },
   computed: {
     // 菜单位置
     menuStyle() {
-      let top = this.y
+      let top = this.y;
       if (top > this.maxTop) {
-        top = top - this.height
+        top = top - this.height;
       }
       return {
         height: this.height + 'px',
         left: this.x + 4 + 'px',
-        top: top + 4 + 'px'
-      }
-    }
+        top: top + 4 + 'px',
+      };
+    },
   },
   watch: {
     menuList: {
       handler(newVal) {
-        this.height = newVal.length * 32
-        this.maxTop = document.body.clientHeight - this.height
+        this.height = newVal.length * 32;
+        this.maxTop = document.body.clientHeight - this.height;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   methods: {
     command(item) {
-      this.$emit('executeCommand', item)
-    }
-  }
-}
+      this.$emit('executeCommand', item);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

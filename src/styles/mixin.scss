@@ -1,6 +1,6 @@
 @mixin clearfix {
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
@@ -27,7 +27,13 @@
   height: 100%;
 }
 
-@mixin container($top: 0, $right: 0, $bottom: 0, $left: 0, $position: absolute) {
+@mixin container(
+  $top: 0,
+  $right: 0,
+  $bottom: 0,
+  $left: 0,
+  $position: absolute
+) {
   position: absolute;
   top: $top;
   right: $right;
@@ -40,7 +46,7 @@
   //扩展点击区域
   position: relative;
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     top: -6px;
     left: -6px;

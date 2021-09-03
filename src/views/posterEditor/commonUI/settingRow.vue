@@ -10,7 +10,7 @@
 .setting-row {
   display: flex;
   justify-content: space-between;
-  .gap{
+  .gap {
     width: 10px;
   }
 }

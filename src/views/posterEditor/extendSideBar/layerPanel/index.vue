@@ -12,7 +12,7 @@
       >
         <draggable
           v-model="inPosterItems"
-          :options="{ animation: 200 }"
+          :options="{animation: 200}"
           class="draggable-container"
         >
           <panel-item
@@ -21,7 +21,7 @@
             :key="item.id"
             :item="item"
             class="item"
-            :class="{ selected: activeItemIds.includes(item.id) }"
+            :class="{selected: activeItemIds.includes(item.id)}"
           />
         </draggable>
       </el-scrollbar>
@@ -30,39 +30,36 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'poster/poster.vuex'
-import { drag } from 'poster/poster.directives'
-import draggable from 'vuedraggable'
-import panelItem from './panelItem'
+import {mapState, mapGetters, mapActions} from 'poster/poster.vuex';
+import {drag} from 'poster/poster.directives';
+import draggable from 'vuedraggable';
+import panelItem from './panelItem';
 
 export default {
-  components: { draggable, panelItem },
-  directives: { drag },
+  components: {draggable, panelItem},
+  directives: {drag},
   data() {
-    return {}
+    return {};
   },
   computed: {
     ...mapState(['posterItems']),
     ...mapGetters(['activeItemIds']),
     inPosterItems: {
       get() {
-        return [...this.posterItems].reverse()
+        return [...this.posterItems].reverse();
       },
       set(val) {
-        this.replacePosterItems([...val].reverse())
-      }
-    }
+        this.replacePosterItems([...val].reverse());
+      },
+    },
   },
   methods: {
-    ...mapActions([
-      'setLayerPanel',
-      'replacePosterItems'
-    ]),
+    ...mapActions(['setLayerPanel', 'replacePosterItems']),
     close() {
-      this.setLayerPanel(false)
-    }
-  }
-}
+      this.setLayerPanel(false);
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .layer-panel {

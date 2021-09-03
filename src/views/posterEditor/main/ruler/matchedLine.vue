@@ -35,7 +35,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .reference-line {
-  /* background-color: #ff0000; */
   position: absolute;
   z-index: 99;
   &.column {

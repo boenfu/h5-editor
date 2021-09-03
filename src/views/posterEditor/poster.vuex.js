@@ -1,4 +1,5 @@
-import { createNamespacedHelpers } from 'vuex'
+import {createNamespacedHelpers} from 'vuex';
 
 // posterModuleMappers
-export const { mapState, mapGetters, mapMutations, mapActions } = createNamespacedHelpers('poster')
+export const {mapState, mapGetters, mapMutations, mapActions} =
+  createNamespacedHelpers('poster');

@@ -1,4 +1,7 @@
 build/*.js
+src/**/**/*.css
+src/**/**/*.png
 src/assets
+src/styles
 public
 dist

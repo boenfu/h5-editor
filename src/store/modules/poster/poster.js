@@ -50,7 +50,7 @@ function getState() {
 const state = getState();
 
 const getters = {
-  posterItemIds(state, getters) {
+  posterItemIds(state) {
     return state.posterItems.map(item => item.id);
   },
   activeItemIds(state) {
@@ -215,7 +215,7 @@ const actions = {
   setUnsavedState({commit}, flag) {
     commit(MTS.SET_UNSAVED_STATE, flag);
   },
-  setCanvasSize({state, dispatch}, data) {
+  setCanvasSize({state}, data) {
     // dispatch('history/push')
     state.canvasSize = data;
   },
@@ -229,7 +229,7 @@ const actions = {
     dispatch('history/push');
     commit(MTS.REMOVE_BACKGROUND);
   },
-  setBackgroundConfig({state, commit, dispatch}, cb) {
+  setBackgroundConfig({commit, dispatch}, cb) {
     dispatch('history/push');
     commit(MTS.SET_BACKGROUND_CONFIG, cb);
   },
@@ -278,13 +278,13 @@ const actions = {
     commit(MTS.REPLACE_POSTER_ITEMS, items);
     commit(MTS.REPLACE_ACTIVE_ITEMS, []);
   },
-  addActiveItem({commit, getters, dispatch}, item) {
+  addActiveItem({commit, getters}, item) {
     if (getters.activeItemIds.includes(item.id)) {
       return;
     }
     commit(MTS.ADD_ACTIVE_ITEM, item);
   },
-  removeActiveItem({commit, dispatch}, item) {
+  removeActiveItem({commit}, item) {
     commit(MTS.REMOVE_ACTIVE_ITEM, item);
   },
   replaceActiveItems({commit}, items) {
@@ -460,7 +460,7 @@ const actions = {
    * 更新当前页面配置
    * 参数pageConfig是从后台获取到的页面配置信息
    */
-  updatePageConfig({dispatch, state, commit}, pageConfig) {
+  updatePageConfig({dispatch, commit}, pageConfig) {
     let recoverData = {};
     if (!pageConfig || !isPlainObject(pageConfig)) {
       commit(MTS.SET_PAGE_CONFIG_ID, '');
@@ -501,7 +501,7 @@ const actions = {
   /**
    * 保存/新增当前的活动页配置
    */
-  saveActivityPageConfig({state, commit, rootGetters}) {
+  saveActivityPageConfig({state, commit}) {
     const requestData = {
       title: state.pageTitle,
       // baseConfig

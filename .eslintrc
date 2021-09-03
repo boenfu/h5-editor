@@ -1,18 +1,15 @@
 {
   "root": true,
-  "ignorePatterns": ["bld", ".bld-cache"],
-  "extends": ["plugin:vue/recommended", "eslint:recommended"],
+  "extends": [
+    "plugin:vue/essential",
+    "plugin:prettier/recommended",
+    "eslint:recommended"
+  ],
+  "rules": {
+    "no-unused-vars": ["warn"]
+  },
   "env": {
     "node": true,
     "es2020": true
-  },
-  "overrides": [
-    {
-      "files": ["**/*.{ts,tsx}"],
-      "extends": ["plugin:@mufan/default"],
-      "parserOptions": {
-        "project": "**/tsconfig.json"
-      }
-    }
-  ]
+  }
 }

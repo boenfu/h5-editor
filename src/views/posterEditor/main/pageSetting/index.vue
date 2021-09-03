@@ -1,33 +1,33 @@
 <template>
   <div class="page-setting">
-    <div class="page-title" :style="{ width: canvasSize.width + 'px' }">
+    <div class="page-title" :style="{width: canvasSize.width + 'px'}">
       <div class="label">页面标题</div>
-      <input v-model="inPageTitle" type="text">
+      <input v-model="inPageTitle" type="text" />
     </div>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from 'poster/poster.vuex'
+import {mapMutations, mapState} from 'poster/poster.vuex';
 export default {
   data() {
-    return {}
+    return {};
   },
   computed: {
     ...mapState(['pageTitle']),
     inPageTitle: {
       get() {
-        return this.pageTitle
+        return this.pageTitle;
       },
       set(val) {
-        this.SET_PAGE_TITLE(val)
-      }
-    }
+        this.SET_PAGE_TITLE(val);
+      },
+    },
   },
   methods: {
-    ...mapMutations(['SET_PAGE_TITLE'])
-  }
-}
+    ...mapMutations(['SET_PAGE_TITLE']),
+  },
+};
 </script>
 <style lang="scss" scoped>
 .page-title {
