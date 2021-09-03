@@ -43,7 +43,7 @@ export function usePlugin(name, options) {
   if (assistWidget) {
     const {componentName} = new assistWidget.constructor();
 
-    pluginMap.extendSideBar[name] = {componentName, ...assistWidget};
+    pluginMap.assistWidget[name] = {componentName, ...assistWidget};
   }
 
   if (widget) {
@@ -65,22 +65,22 @@ const pluginHelpers = {
   removeWidget(widget) {
     store.dispatch('poster/removeItem', widget);
   },
-  updateWidgetState(agrs) {
+  updateWidgetState(args) {
     // { keyPath, value, widgetId, pushHistory = true }
-    store.dispatch('poster/updateWidgetState', agrs);
+    store.dispatch('poster/updateWidgetState', args);
   },
-  updateDragInfo(agrs) {
-    store.dispatch('poster/updateDragInfo', agrs);
+  updateDragInfo(args) {
+    store.dispatch('poster/updateDragInfo', args);
   },
   getCanvasSize() {
     return store.getters['poster/canvasSize'];
   },
-  setCanvasSize(agrs) {
+  setCanvasSize(args) {
     // {width, height}
-    store.dispatch('poster/setCanvasSize', agrs);
+    store.dispatch('poster/setCanvasSize', args);
   },
-  recoverEditorData(agrs /** initialBackupData */) {
-    store.dispatch('poster/backup/recover', agrs);
+  recoverEditorData(args /** initialBackupData */) {
+    store.dispatch('poster/backup/recover', args);
   },
 };
 

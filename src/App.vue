@@ -6,7 +6,9 @@
 <script>
 import posterEditor from '@/views/posterEditor';
 export default {
-  components: {posterEditor},
+  components: {
+    posterEditor,
+  },
 };
 </script>
 <style lang="scss"></style>

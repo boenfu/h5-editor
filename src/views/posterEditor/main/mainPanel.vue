@@ -38,11 +38,11 @@
 import backgroundWidget from 'poster/plugins/background/widget';
 import {mapState} from '../poster.vuex';
 import widgetContainer from './widgets/widgetContainer';
-import drawRectWidget from './assistWidgets/drawRectWidget';
 import {pluginMap, pluginWrap} from '../plugins';
 
 const pluginComponents = {};
-for (const [options] of Object.values(pluginMap.assistWidget)) {
+
+for (const options of Object.values(pluginMap.assistWidget)) {
   const {componentName, component} = options;
   pluginComponents[componentName] = pluginWrap(component);
 }
@@ -51,7 +51,6 @@ export default {
   components: {
     widgetContainer,
     backgroundWidget,
-    drawRectWidget,
     ...pluginComponents,
   },
   data() {
