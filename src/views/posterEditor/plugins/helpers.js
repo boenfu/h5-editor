@@ -79,6 +79,9 @@ const pluginHelpers = {
     // {width, height}
     store.dispatch('poster/setCanvasSize', args);
   },
+  setFixedAspectRatio(args) {
+    store.dispatch('poster/setFixedAspectRatio', args);
+  },
   recoverEditorData(args /** initialBackupData */) {
     store.dispatch('poster/backup/recover', args);
   },

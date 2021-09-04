@@ -20,9 +20,10 @@ function getState() {
     activityId: '',
     pageConfigId: '',
     pageTitle: '',
+    fixedAspectRatio: true,
     canvasSize: {
-      width: 1920,
-      height: 1080,
+      width: 1200,
+      height: 675,
     },
     canvasPosition: {
       top: null,
@@ -222,6 +223,9 @@ const actions = {
   setCanvasSize({state}, data) {
     // dispatch('history/push')
     state.canvasSize = data;
+  },
+  setFixedAspectRatio({state}, fixedAspectRatio) {
+    state.fixedAspectRatio = fixedAspectRatio;
   },
   addBackground({state, commit, dispatch}, item) {
     if (state.background) {
