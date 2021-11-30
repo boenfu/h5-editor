@@ -94,8 +94,11 @@ export default {
       try {
         const file = inputNode.files;
         const imgFile = file && file[0];
+
         await validateImage(imgFile);
+
         const src = await uploadActivityImgAssets(imgFile);
+
         this.addBackground(
           new Widget({
             wState: {
@@ -118,6 +121,7 @@ export default {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
+
   .title {
     width: 100%;
     padding: 10px 0;
@@ -125,10 +129,12 @@ export default {
     font-weight: bold;
     color: $colorText;
   }
+
   .recommend-color {
     ul {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+
       li {
         height: 24px;
         width: 24px;
@@ -136,15 +142,18 @@ export default {
         transition: 0.2s;
         cursor: pointer;
         border-radius: 2px;
+
         &:hover {
           transform: scale(1.2);
         }
       }
     }
   }
+
   .add-image {
     width: 100%;
   }
+
   ::v-deep {
     .el-color-picker,
     .el-color-picker__trigger {

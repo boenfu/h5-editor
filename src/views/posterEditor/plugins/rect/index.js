@@ -10,7 +10,7 @@ export default {
     icon: 'icon-rect',
     name: '矩形',
     component: leftSide,
-    order: 4,
+    order: 6,
   },
   widget: {
     component: widget,

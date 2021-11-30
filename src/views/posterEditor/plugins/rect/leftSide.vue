@@ -29,6 +29,7 @@ export default {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
+
   .add-text {
     width: 100%;
   }

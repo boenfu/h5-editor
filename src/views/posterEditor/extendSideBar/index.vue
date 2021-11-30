@@ -61,26 +61,6 @@
       </el-tooltip>
       <el-tooltip
         effect="dark"
-        content="生成H5代码（Beta）"
-        placement="left"
-        transition="el-zoom-in-left"
-      >
-        <div class="item" @click="exportH5">
-          <i class="icon-h5" />
-        </div>
-      </el-tooltip>
-      <el-tooltip
-        effect="dark"
-        content="生成海报"
-        placement="left"
-        transition="el-zoom-in-left"
-      >
-        <div class="item" @click="exportPoster">
-          <i class="icon-poster" />
-        </div>
-      </el-tooltip>
-      <el-tooltip
-        effect="dark"
         content="快捷键参考"
         placement="left"
         transition="el-zoom-in-left"

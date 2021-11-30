@@ -5,10 +5,10 @@ import controlPanel from './widgetControl';
 
 export default {
   leftSide: {
-    icon: 'el-icon-picture',
-    name: '图片',
+    icon: 'el-icon-mic',
+    name: 'TTS 字幕',
     component: leftSide,
-    order: 5,
+    order: 2,
   },
   widget: {
     component: widget,
